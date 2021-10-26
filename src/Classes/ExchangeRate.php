@@ -74,6 +74,41 @@ class ExchangeRate
         return $converted;
     }
 
+    public function convertBetweenDateRange(int $amount, string $from, string|array $to, Carbon $startDate, Carbon $endDate): array
+    {
+        $exchangeRates = $this->exchangeRateBetweenDateRange($from, $to, $startDate, $endDate);
+
+        if (is_string($to)) {
+            return $this->convertSingleCurrencyPairOverDateRange($amount, $to, $exchangeRates);
+        }
+
+        return $this->convertMultipleCurrenciesOverDateRange($amount, $exchangeRates);
+    }
+
+    private function convertSingleCurrencyPairOverDateRange(int $amount, string $to, array $exchangeRates): array
+    {
+        $conversions = [];
+
+        foreach ($exchangeRates as $date => $exchangeRate) {
+            $conversions[$date] = $this->convertMoney($amount, $exchangeRate[$to]);
+        }
+
+        return $conversions;
+    }
+
+    private function convertMultipleCurrenciesOverDateRange(int $amount, array $exchangeRates): array
+    {
+        $conversions = [];
+
+        foreach ($exchangeRates as $date => $exchangeRate) {
+            foreach ($exchangeRate as $currency => $rate) {
+                $conversions[$date][$currency] = $this->convertMoney($amount, $rate);
+            }
+        }
+
+        return $conversions;
+    }
+
     private function convertMoney(string $amount, string $exchangeRate): string
     {
         return bcmul($amount, $exchangeRate, 8);
