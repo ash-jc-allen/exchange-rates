@@ -1,0 +1,36 @@
+{
+    "name": "ashallendesign/exchange-rates",
+    "description": "A package for interacting with the exchangerate.host API",
+    "type": "library",
+    "homepage": "https://github.com/ash-jc-allen/exchange-rates",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "AshAllenDesign\\ExchangeRates\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ash Allen",
+            "email": "mail@ashallendesign.co.uk"
+        }
+    ],
+    "keywords": [
+        "ashallendesign",
+        "exchange-rates",
+        "php"
+    ],
+    "require": {
+        "php": "^8.0",
+        "nesbot/carbon": "^2.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
+}
