@@ -9,6 +9,11 @@
             "AshAllenDesign\\ExchangeRates\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "AshAllenDesign\\ExchangeRates\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Ash Allen",
