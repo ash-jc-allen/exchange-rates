@@ -2,7 +2,11 @@
 
 namespace AshAllenDesign\ExchangeRates\Tests\Unit;
 
+use AshAllenDesign\ExchangeRates\Classes\ExchangeRate;
+use AshAllenDesign\ExchangeRates\Classes\RequestBuilder;
+use AshAllenDesign\ExchangeRates\Exceptions\InvalidDateException;
 use AshAllenDesign\ExchangeRates\Tests\TestCase;
+use Carbon\Carbon;
 
 class ExchangeRateBetweenDateRangeTest extends TestCase
 {
@@ -21,18 +25,36 @@ class ExchangeRateBetweenDateRangeTest extends TestCase
     /** @test */
     public function exception_is_thrown_if_the_start_date_parameter_passed_is_in_the_future(): void
     {
+        $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
+        $requestBuilderMock->shouldReceive('makeRequest')->never();
+
+        $this->expectException(InvalidDateException::class);
+
+        (new ExchangeRate())->exchangeRateBetweenDateRange('GBP', 'EUR', Carbon::now()->addDay(), Carbon::now()->addDays(2));
     }
 
     /** @test */
     public function exception_is_thrown_if_the_end_date_parameter_passed_is_in_the_future(): void
     {
+        $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
+        $requestBuilderMock->shouldReceive('makeRequest')->never();
+
+        $this->expectException(InvalidDateException::class);
+
+        (new ExchangeRate())->exchangeRateBetweenDateRange('GBP', 'EUR', Carbon::now()->subDay(), Carbon::now()->addDays(2));
     }
 
     /** @test */
     public function exception_is_thrown_if_the_end_date_is_before_the_start_date(): void
     {
+        $requestBuilderMock = \Mockery::mock(RequestBuilder::class);
 
+        $requestBuilderMock->shouldReceive('makeRequest')->never();
+
+        $this->expectException(InvalidDateException::class);
+
+        (new ExchangeRate())->exchangeRateBetweenDateRange('GBP', 'EUR', Carbon::now()->subDay(), Carbon::now()->subDays(2));
     }
 }
