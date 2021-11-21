@@ -10,6 +10,7 @@ class Validation
     /**
      * @param Carbon $from
      * @param Carbon $to
+     *
      * @throws InvalidDateException
      */
     public static function validateStartAndEndDates(Carbon $from, Carbon $to): void
@@ -24,6 +25,7 @@ class Validation
 
     /**
      * @param Carbon $date
+     *
      * @throws InvalidDateException
      */
     public static function validateDate(Carbon $date): void
