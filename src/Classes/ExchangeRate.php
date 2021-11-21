@@ -19,7 +19,7 @@ class ExchangeRate
         return $this->requestBuilder->makeRequest('symbols')['symbols'];
     }
 
-    public function exchangeRate(string $from, string|array $to, Carbon $date = null): array
+    public function exchangeRate(string $from, string|array $to, Carbon $date = null): string|array
     {
         if ($date) {
             Validation::validateDate($date);
@@ -34,7 +34,13 @@ class ExchangeRate
 
         $requestPath = $date ? $date->format('Y-m-d') : 'latest';
 
-        return $this->requestBuilder->makeRequest($requestPath, $queryParams)['rates'];
+        $rates = $this->requestBuilder->makeRequest($requestPath, $queryParams)['rates'];
+
+        if (is_string($to)) {
+            return $rates[$to];
+        }
+
+        return array_map(static fn (string $item) => $item, $rates);
     }
 
     public function exchangeRateBetweenDateRange(string $from, string|array $to, Carbon $startDate, Carbon $endDate): array
@@ -59,16 +65,16 @@ class ExchangeRate
             Validation::validateDate($date);
         }
 
-        if (is_string($to)) {
-            $exchangeRates = $this->exchangeRate($from, $to, $date);
+        $exchangeRates = $this->exchangeRate($from, $to, $date);
 
-            return $this->convertMoney($amount, $exchangeRates[$to]);
+        if (is_string($to)) {
+            return $this->convertMoney($amount, $exchangeRates);
         }
 
         $converted = [];
 
-        foreach ($this->exchangeRate($from, $to, $date) as $currencyCode => $exchangeRate) {
-            $converted[$currencyCode] =  bcmul($amount, $exchangeRate, 8);
+        foreach ($exchangeRates as $currencyCode => $exchangeRate) {
+            $converted[$currencyCode] =  $this->convertMoney($amount, $exchangeRate);
         }
 
         return $converted;
@@ -90,7 +96,7 @@ class ExchangeRate
         $conversions = [];
 
         foreach ($exchangeRates as $date => $exchangeRate) {
-            $conversions[$date] = $this->convertMoney($amount, $exchangeRate[$to]);
+            $conversions[$date][$to] = $this->convertMoney($amount, $exchangeRate[$to]);
         }
 
         return $conversions;
