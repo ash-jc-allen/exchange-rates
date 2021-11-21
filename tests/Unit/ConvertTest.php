@@ -104,7 +104,6 @@ class ConvertTest extends TestCase
         (new ExchangeRate($requestBuilderMock))->convert(100, 'GBP', 'EUR', Carbon::now()->addDay());
     }
 
-
     private function mockResponseForTodayForSingleCurrency(): array
     {
         return [
@@ -136,7 +135,6 @@ class ConvertTest extends TestCase
                 'EUR' => 1.186176,
             ],
         ];
-
     }
 
     private function mockResponseForTodayForMultipleCurrencies(): array

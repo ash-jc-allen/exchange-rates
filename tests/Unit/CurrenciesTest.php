@@ -29,7 +29,7 @@ class CurrenciesTest extends TestCase
         return [
             'motd'    => [
                 'msg' => 'If you or your company use this project or like what we doing, please consider backing us so we can continue maintaining and evolving this project.',
-                'url' => 'https://exchangerate.host/#/donate'
+                'url' => 'https://exchangerate.host/#/donate',
             ],
             'success' => 1,
             'symbols' => [
@@ -39,13 +39,13 @@ class CurrenciesTest extends TestCase
                 ],
                 'AFN' => [
                     'description' => 'Afghan Afghani',
-                    'code'        => 'AFN'
+                    'code'        => 'AFN',
                 ],
                 'ALL' => [
                     'description' => 'Albanian Lek',
                     'code'        => 'ALL',
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -58,12 +58,12 @@ class CurrenciesTest extends TestCase
             ],
             'AFN' => [
                 'description' => 'Afghan Afghani',
-                'code'        => 'AFN'
+                'code'        => 'AFN',
             ],
             'ALL' => [
                 'description' => 'Albanian Lek',
                 'code'        => 'ALL',
-            ]
+            ],
         ];
     }
 }

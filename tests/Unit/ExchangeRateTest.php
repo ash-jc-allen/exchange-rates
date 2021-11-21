@@ -135,7 +135,6 @@ class ExchangeRateTest extends TestCase
                 'EUR' => 1.186176,
             ],
         ];
-
     }
 
     private function mockResponseForTodayForMultipleCurrencies(): array
