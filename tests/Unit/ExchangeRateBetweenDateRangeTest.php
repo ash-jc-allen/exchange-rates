@@ -31,7 +31,7 @@ class ExchangeRateBetweenDateRangeTest extends TestCase
 
         $this->expectException(InvalidDateException::class);
 
-        (new ExchangeRate())->exchangeRateBetweenDateRange('GBP', 'EUR', Carbon::now()->addDay(), Carbon::now()->addDays(2));
+        (new ExchangeRate($requestBuilderMock))->exchangeRateBetweenDateRange('GBP', 'EUR', Carbon::now()->addDay(), Carbon::now()->addDays(2));
     }
 
     /** @test */
@@ -43,7 +43,7 @@ class ExchangeRateBetweenDateRangeTest extends TestCase
 
         $this->expectException(InvalidDateException::class);
 
-        (new ExchangeRate())->exchangeRateBetweenDateRange('GBP', 'EUR', Carbon::now()->subDay(), Carbon::now()->addDays(2));
+        (new ExchangeRate($requestBuilderMock))->exchangeRateBetweenDateRange('GBP', 'EUR', Carbon::now()->subDay(), Carbon::now()->addDays(2));
     }
 
     /** @test */
@@ -55,6 +55,6 @@ class ExchangeRateBetweenDateRangeTest extends TestCase
 
         $this->expectException(InvalidDateException::class);
 
-        (new ExchangeRate())->exchangeRateBetweenDateRange('GBP', 'EUR', Carbon::now()->subDay(), Carbon::now()->subDays(2));
+        (new ExchangeRate($requestBuilderMock))->exchangeRateBetweenDateRange('GBP', 'EUR', Carbon::now()->subDay(), Carbon::now()->subDays(2));
     }
 }
