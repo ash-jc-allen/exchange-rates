@@ -17,15 +17,18 @@ class ConvertBetweenDateRangeTest extends TestCase
 
         $requestBuilderMock->shouldReceive('makeRequest')
             ->once()
-            ->withArgs(['2021-10-25', [
-                'base'    => 'GBP',
-                'symbols' => 'EUR',
+            ->withArgs(['/timeseries', [
+                'base'       => 'GBP',
+                'start_date' => '2021-10-19',
+                'end_date'   => '2021-10-25',
+                'symbols'    => 'EUR',
             ]])
             ->andReturn($this->mockResponseForSingleCurrencyPair());
 
         self::assertEquals(
             $this->expectedForSingleCurrencyPair(),
-            (new ExchangeRate($requestBuilderMock))->exchangeRateBetweenDateRange(
+            (new ExchangeRate($requestBuilderMock))->convertBetweenDateRange(
+                100,
                 'GBP',
                 'EUR',
                 Carbon::create(2021, 10, 19),
@@ -41,15 +44,18 @@ class ConvertBetweenDateRangeTest extends TestCase
 
         $requestBuilderMock->shouldReceive('makeRequest')
             ->once()
-            ->withArgs(['2021-10-25', [
-                'base'    => 'GBP',
-                'symbols' => ['EUR', 'USD'],
+            ->withArgs(['/timeseries', [
+                'base'       => 'GBP',
+                'start_date' => '2021-10-19',
+                'end_date'   => '2021-10-25',
+                'symbols'    => 'EUR,USD',
             ]])
             ->andReturn($this->mockResponseForMultipleCurrencies());
 
         self::assertEquals(
             $this->expectedForMultipleCurrencies(),
-            (new ExchangeRate($requestBuilderMock))->exchangeRateBetweenDateRange(
+            (new ExchangeRate($requestBuilderMock))->convertBetweenDateRange(
+                100,
                 'GBP',
                 ['EUR', 'USD'],
                 Carbon::create(2021, 10, 19),
@@ -181,25 +187,25 @@ class ConvertBetweenDateRangeTest extends TestCase
     {
         return [
             '2021-10-19' => [
-                'EUR' => '1.186206',
+                'EUR' => '118.62060000',
             ],
             '2021-10-20' => [
-                'EUR' => '1.18663',
+                'EUR' => '118.66300000',
             ],
             '2021-10-21' => [
-                'EUR' => '1.18649',
+                'EUR' => '118.64900000',
             ],
             '2021-10-22' => [
-                'EUR' => '1.181421',
+                'EUR' => '118.14210000',
             ],
             '2021-10-23' => [
-                'EUR' => '1.181848',
+                'EUR' => '118.18480000',
             ],
             '2021-10-24' => [
-                'EUR' => '1.1813',
+                'EUR' => '118.13000000',
             ],
             '2021-10-25' => [
-                'EUR' => '1.186176',
+                'EUR' => '118.61760000',
             ],
         ];
     }
@@ -208,32 +214,32 @@ class ConvertBetweenDateRangeTest extends TestCase
     {
         return [
             '2021-10-19' => [
-                'EUR' => 1.186206,
-                'USD' => 1.381227,
+                'EUR' => '118.62060000',
+                'USD' => '138.12270000',
             ],
             '2021-10-20' => [
-                'EUR' => 1.18663,
-                'USD' => 1.382278,
+                'EUR' => '118.66300000',
+                'USD' => '138.22780000',
             ],
             '2021-10-21' => [
-                'EUR' => 1.18649,
-                'USD' => 1.378447,
+                'EUR' => '118.64900000',
+                'USD' => '137.84470000',
             ],
             '2021-10-22' => [
-                'EUR' => 1.181421,
-                'USD' => 1.375148,
+                'EUR' => '118.14210000',
+                'USD' => '137.51480000',
             ],
             '2021-10-23' => [
-                'EUR' => 1.181848,
-                'USD' => 1.375865,
+                'EUR' => '118.18480000',
+                'USD' => '137.58650000',
             ],
             '2021-10-24' => [
-                'EUR' => 1.1813,
-                'USD' => 1.375172,
+                'EUR' => '118.13000000',
+                'USD' => '137.51720000',
             ],
             '2021-10-25' => [
-                'EUR' => 1.186176,
-                'USD' => 1.377304,
+                'EUR' => '118.61760000',
+                'USD' => '137.73040000',
             ],
         ];
     }

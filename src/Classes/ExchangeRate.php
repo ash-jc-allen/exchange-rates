@@ -96,7 +96,7 @@ class ExchangeRate
         $conversions = [];
 
         foreach ($exchangeRates as $date => $exchangeRate) {
-            $conversions[$date] = $this->convertMoney($amount, $exchangeRate[$to]);
+            $conversions[$date][$to] = $this->convertMoney($amount, $exchangeRate[$to]);
         }
 
         return $conversions;
