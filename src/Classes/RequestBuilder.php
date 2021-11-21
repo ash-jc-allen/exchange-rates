@@ -16,6 +16,9 @@ class RequestBuilder
     }
 
     /**
+     * Make a HTTP request to the exchangerate.host API and return the
+     * response body.
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
      */
