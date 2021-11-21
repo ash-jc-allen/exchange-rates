@@ -7,6 +7,11 @@ use Carbon\Carbon;
 
 class Validation
 {
+    /**
+     * @param Carbon $from
+     * @param Carbon $to
+     * @throws InvalidDateException
+     */
     public static function validateStartAndEndDates(Carbon $from, Carbon $to): void
     {
         self::validateDate($from);
@@ -17,6 +22,10 @@ class Validation
         }
     }
 
+    /**
+     * @param Carbon $date
+     * @throws InvalidDateException
+     */
     public static function validateDate(Carbon $date): void
     {
         if (!$date->isPast()) {
