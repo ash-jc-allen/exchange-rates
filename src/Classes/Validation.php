@@ -19,7 +19,7 @@ class Validation
 
     public static function validateDate(Carbon $date): void
     {
-        if (! $date->isPast()) {
+        if (!$date->isPast()) {
             throw new InvalidDateException('The date must be in the past.');
         }
 

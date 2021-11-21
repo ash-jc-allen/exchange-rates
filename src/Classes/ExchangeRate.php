@@ -74,7 +74,7 @@ class ExchangeRate
         $converted = [];
 
         foreach ($exchangeRates as $currencyCode => $exchangeRate) {
-            $converted[$currencyCode] =  $this->convertMoney($amount, $exchangeRate);
+            $converted[$currencyCode] = $this->convertMoney($amount, $exchangeRate);
         }
 
         return $converted;
