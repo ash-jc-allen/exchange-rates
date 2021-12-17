@@ -18,7 +18,7 @@ class CurrenciesTest extends TestCase
             ->once()
             ->andReturn($this->mockResponse());
 
-        self::assertEquals(
+        self::assertSame(
             $this->expectedResponse(),
             (new ExchangeRate($requestBuilderMock))->currencies(),
         );

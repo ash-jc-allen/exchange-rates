@@ -25,7 +25,7 @@ class ConvertBetweenDateRangeTest extends TestCase
             ]])
             ->andReturn($this->mockResponseForSingleCurrencyPair());
 
-        self::assertEquals(
+        self::assertSame(
             $this->expectedForSingleCurrencyPair(),
             (new ExchangeRate($requestBuilderMock))->convertBetweenDateRange(
                 100,
@@ -52,7 +52,7 @@ class ConvertBetweenDateRangeTest extends TestCase
             ]])
             ->andReturn($this->mockResponseForMultipleCurrencies());
 
-        self::assertEquals(
+        self::assertSame(
             $this->expectedForMultipleCurrencies(),
             (new ExchangeRate($requestBuilderMock))->convertBetweenDateRange(
                 100,

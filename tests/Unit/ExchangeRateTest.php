@@ -23,7 +23,7 @@ class ExchangeRateTest extends TestCase
             ]])
             ->andReturn($this->mockResponseForTodayForSingleCurrency());
 
-        self::assertEquals(
+        self::assertSame(
             '1.186864',
             (new ExchangeRate($requestBuilderMock))->exchangeRate('GBP', 'EUR'),
         );
@@ -42,7 +42,7 @@ class ExchangeRateTest extends TestCase
             ]])
             ->andReturn($this->mockResponseForTodayForMultipleCurrencies());
 
-        self::assertEquals(
+        self::assertSame(
             [
                 'EUR' => '1.186864',
                 'USD' => '1.376395',
@@ -64,7 +64,7 @@ class ExchangeRateTest extends TestCase
             ]])
             ->andReturn($this->mockResponseForYesterdayForSingleCurrency());
 
-        self::assertEquals(
+        self::assertSame(
             '1.186176',
             (new ExchangeRate($requestBuilderMock))->exchangeRate('GBP', 'EUR', Carbon::create(2021, 10, 25)),
         );
@@ -83,7 +83,7 @@ class ExchangeRateTest extends TestCase
             ]])
             ->andReturn($this->mockResponseForYesterdayForMultipleCurrencies());
 
-        self::assertEquals(
+        self::assertSame(
             [
                 'EUR' => '1.186176',
                 'USD' => '1.377304',
