@@ -23,7 +23,7 @@ class ConvertTest extends TestCase
             ]])
             ->andReturn($this->mockResponseForTodayForSingleCurrency());
 
-        self::assertEquals(
+        self::assertSame(
             '118.68640000',
             (new ExchangeRate($requestBuilderMock))->convert(100, 'GBP', 'EUR'),
         );
@@ -42,7 +42,7 @@ class ConvertTest extends TestCase
             ]])
             ->andReturn($this->mockResponseForTodayForMultipleCurrencies());
 
-        self::assertEquals(
+        self::assertSame(
             [
                 'EUR' => '118.68640000',
                 'USD' => '137.63950000',
@@ -64,7 +64,7 @@ class ConvertTest extends TestCase
             ]])
             ->andReturn($this->mockResponseForYesterdayForSingleCurrency());
 
-        self::assertEquals(
+        self::assertSame(
             '118.61760000',
             (new ExchangeRate($requestBuilderMock))->convert(100, 'GBP', 'EUR', Carbon::create(2021, 10, 25)),
         );
@@ -83,7 +83,7 @@ class ConvertTest extends TestCase
             ]])
             ->andReturn($this->mockResponseForYesterdayForMultipleCurrencies());
 
-        self::assertEquals(
+        self::assertSame(
             [
                 'EUR' => '118.61760000',
                 'USD' => '137.73040000',
